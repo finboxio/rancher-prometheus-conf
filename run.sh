@@ -9,7 +9,7 @@ done
 
 mkdir -p ${PROMETHEUS_DATA_DIR}
 
-prometheus \
+exec prometheus \
   -config.file=/etc/rancher-conf/prometheus.yml \
   -storage.local.path=${PROMETHEUS_DATA_DIR} \
   -web.console.libraries=/etc/prometheus/console_libraries \

@@ -14,7 +14,7 @@ prometheus:
       datasources:
         Prometheus:
           type: prometheus
-          url: http://$${stack_name}.$${service_name}.rancher.internal:9090
+          url: http://prometheus.prometheus.rancher.internal:9090
           access: proxy
       dashboards:
         static:

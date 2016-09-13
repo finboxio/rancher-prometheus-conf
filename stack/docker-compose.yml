@@ -26,7 +26,7 @@ prometheus-conf:
     - /opt/rancher/bin
 
 prometheus-serve:
-  image: finboxio/serve:dev
+  image: finboxio/serve
   tty: true
   command: /etc/rancher-conf
   labels:
@@ -45,7 +45,7 @@ ranch-eye:
     io.rancher.container.dns: 'true'
 
 node-exporter:
-  image: prom/node-exporter:latest
+  image: prom/node-exporter
   tty: true
   stdin_open: true
   net: host

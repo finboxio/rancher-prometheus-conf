@@ -1,26 +1,16 @@
-#!/bin/bash
+#!/bin/sh
 
-set -e
+PROMETHEUS_DATA_DIR=${PROMETHEUS_DATA_DIR:?"PROMETHEUS_DATA_DIR must be set"}
 
-PLUGIN_TXT=${PLUGIN_TXT:-/usr/share/elasticsearch/plugins.txt}
-
-while [ ! -f "/usr/share/elasticsearch/config/elasticsearch.yml" ]; do
-    sleep 1
+while [[ ! -e /etc/rancher-conf/prometheus.yml ]]; do
+  echo "Waiting for prometheus conf..."
+  sleep 2
 done
 
-if [ -f "$PLUGIN_TXT" ]; then
-    for plugin in $(<"${PLUGIN_TXT}"); do
-        /usr/share/elasticsearch/bin/plugin --install $plugin
-    done
-fi
+mkdir -p ${PROMETHEUS_DATA_DIR}
 
-datadir=$(cat /usr/share/elasticsearch/config/elasticsearch.yml | grep path.data | awk -F: '{ print $2 }')
-if [[ "$datadir" != "" ]]; then
-  mkdir -p $datadir &>/dev/null
-  chown -R elasticsearch:elasticsearch $datadir
-fi
-
-mkdir -p /usr/share/elasticsearch/config/scripts
-chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/config
-
-exec /docker-entrypoint.sh elasticsearch
+prometheus \
+  -config.file=/etc/rancher-conf/prometheus.yml \
+  -storage.local.path=${PROMETHEUS_DATA_DIR} \
+  -web.console.libraries=/etc/prometheus/console_libraries \
+  -web.console.templates=/etc/prometheus/consoles

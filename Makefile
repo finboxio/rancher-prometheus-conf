@@ -1,5 +1,6 @@
 DOCKER_USER=finboxio
 DOCKER_IMAGE=rancher-prometheus-conf
+RANCHER_ENV=local
 
 GIT_BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 GIT_COMMIT := $(shell git rev-parse HEAD)
@@ -19,6 +20,10 @@ BUILD_VERSION := $(shell if [[ "$(GIT_BRANCH)" != "master" ]]; then echo $(GIT_B
 DOCKER_IMAGE := $(shell if [[ "$(DOCKER_REGISTRY)" ]]; then echo $(DOCKER_REGISTRY)/$(DOCKER_USER)/$(DOCKER_IMAGE); else echo $(DOCKER_USER)/$(DOCKER_IMAGE); fi)
 DOCKER_VERSION := $(shell echo "$(DOCKER_IMAGE):$(BUILD_VERSION)")
 DOCKER_LATEST := $(shell if [[ "$(VERSION_DIRTY)" -gt "0" ]] || [[ "$(GIT_DIRTY)" == "yes" ]]; then echo "$(DOCKER_IMAGE):dev"; else echo $(DOCKER_IMAGE):latest; fi)
+
+RANCHER_URL := $(shell renv local | grep RANCHER_URL | cut -d= -f2)
+RANCHER_ACCESS_KEY := $(shell renv local | grep RANCHER_ACCESS_KEY | cut -d= -f2)
+RANCHER_SECRET_KEY := $(shell renv local | grep RANCHER_SECRET_KEY | cut -d= -f2)
 
 info:
 	@echo "git branch:      $(GIT_BRANCH)"
@@ -41,3 +46,13 @@ docker.build:
 docker.push: docker.build
 	@docker push $(DOCKER_VERSION)
 	@docker push $(DOCKER_LATEST)
+
+rancher.deploy: docker.push
+	@rancher-compose \
+		--url $(RANCHER_URL) \
+		--access-key $(RANCHER_ACCESS_KEY) \
+		--secret-key $(RANCHER_SECRET_KEY) \
+		-p prometheus \
+		-f stack/docker-compose.yml \
+		-r stack/rancher-compose.yml \
+		up --force-upgrade -d

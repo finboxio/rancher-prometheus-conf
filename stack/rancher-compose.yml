@@ -1,0 +1,51 @@
+prometheus:
+  scale: 1
+  health_check:
+    port: 9090
+    interval: 2000
+    initializing_timeout: 10000
+    unhealthy_threshold: 3
+    strategy: recreate
+    healthy_threshold: 2
+    response_timeout: 2000
+    reinitializing_timeout: 10000
+  metadata:
+    grafana:
+      datasources:
+        Prometheus:
+          type: prometheus
+          url: http://$${stack_name}.$${service_name}.rancher.internal:9090
+          access: proxy
+      dashboards:
+        static:
+          - https://raw.githubusercontent.com/finboxio/rancher-prometheus-conf/master/dashboards/host-stats.json
+          - https://raw.githubusercontent.com/finboxio/rancher-prometheus-conf/master/dashboards/container-stats.json
+          - https://raw.githubusercontent.com/finboxio/rancher-prometheus-conf/master/dashboards/rancher-stats.json
+          - https://raw.githubusercontent.com/finboxio/rancher-prometheus-conf/master/dashboards/prometheus-stats.json
+          - https://raw.githubusercontent.com/finboxio/rancher-prometheus-conf/master/dashboards/stack-status.json
+prometheus-conf:
+  scale: 1
+prometheus-serve:
+  health_check:
+    port: 3000
+    interval: 2000
+    initializing_timeout: 10000
+    unhealthy_threshold: 3
+    strategy: recreate
+    healthy_threshold: 2
+    response_timeout: 2000
+    reinitializing_timeout: 10000
+  scale: 1
+grafana:
+  scale: 1
+  health_check:
+    port: 3000
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000
+grafana-db:
+  scale: 1
+grafana-db-conf:
+  scale: 1

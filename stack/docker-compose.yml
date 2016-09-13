@@ -1,3 +1,54 @@
+prometheus:
+  image: prom/prometheus:v1.0.2
+  tty: true
+  stdin_open: true
+  entrypoint: /opt/rancher/bin/run.sh
+  environment:
+    PROMETHEUS_DATA_DIR: /ebs/prometheus
+  labels:
+    io.rancher.sidekicks: prometheus-conf,prometheus-serve
+    lb.haproxy.9090.frontend: 80/http
+  volumes_from:
+     - prometheus-conf
+
 prometheus-conf:
   image: finboxio/rancher-prometheus-conf:dev
   tty: true
+  pid: host
+  privileged: true
+  labels:
+    io.rancher.container.pull_image: always
+  volumes:
+    - /ebs:/ebs
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /usr/local/bin/docker:/usr/local/bin/docker
+    - /etc/rancher-conf
+    - /opt/rancher/bin
+
+prometheus-serve:
+  image: finboxio/serve:dev
+  tty: true
+  command: /etc/rancher-conf
+  labels:
+    lb.haproxy.3000.frontend: 80/http
+    lb.haproxy.3000.domain: http://ps.rancher
+  volumes_from:
+    - prometheus-conf
+
+ranch-eye:
+  image: infinityworks/ranch-eye:03
+  tty: true
+  stdin_open: true
+  net: host
+  labels:
+    io.rancher.scheduler.global: 'true'
+    io.rancher.container.dns: 'true'
+
+node-exporter:
+  image: prom/node-exporter:latest
+  tty: true
+  stdin_open: true
+  net: host
+  labels:
+    io.rancher.scheduler.global: 'true'
+    io.rancher.container.dns: 'true'

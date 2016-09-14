@@ -483,9 +483,9 @@
     {
       "icon": "external link",
       "tags": [],
-      "title": "Prometheus Rancher Exporter",
+      "title": "Rancher Exporter",
       "type": "link",
-      "url": "https://github.com/infinityworksltd/prometheus-rancher-exporter"
+      "url": "https://github.com/finboxio/prometheus-rancher-exporter"
     }
   ]
 }

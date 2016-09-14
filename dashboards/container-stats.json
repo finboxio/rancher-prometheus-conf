@@ -268,7 +268,7 @@
           },
           "targets": [
             {
-              "expr": "count(rancher_environment_health)",
+              "expr": "count(rancher_stack_health)",
               "intervalFactor": 2,
               "legendFormat": "",
               "refId": "A",

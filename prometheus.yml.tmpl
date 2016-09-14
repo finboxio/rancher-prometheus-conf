@@ -31,13 +31,18 @@ scrape_configs:
     {{- end }}
     {{- end }}
 
-  - job_name: 'rancher-api'
-    dns_sd_configs:
-    - names:
-      - 'prometheus-rancher-exporter'
-      refresh_interval: 15s
-      type: A
-      port: 9010
+  - job_name: 'RancherStatus'
+    static_configs:
+    {{- with service "rancher-exporter" }}
+    {{- range .Containers }}
+    {{- if eq .State "running" }}
+      - targets:
+        - {{ .Address }}:9010
+        labels:
+          instance: {{ .Host.Name }}
+    {{- end }}
+    {{- end }}
+    {{- end }}
 
   - job_name: 'Prometheus'
     static_configs:

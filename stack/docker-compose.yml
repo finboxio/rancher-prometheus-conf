@@ -35,6 +35,16 @@ prometheus-serve:
   volumes_from:
     - prometheus-conf
 
+rancher-exporter:
+  image: finboxio/prometheus-rancher-exporter:latest
+  environment:
+    PORT: 9010
+  labels:
+    lb.haproxy.9010.frontend: 80/http
+    lb.haproxy.9010.domain: http://re.rancher
+    io.rancher.container.create_agent: true
+    io.rancher.container.agent.role: environment
+
 ranch-eye:
   image: infinityworks/ranch-eye:03
   tty: true

@@ -268,7 +268,7 @@
           },
           "targets": [
             {
-              "expr": "count(rancher_environment)",
+              "expr": "count(rancher_environment_health)",
               "intervalFactor": 2,
               "legendFormat": "",
               "refId": "A",
@@ -332,7 +332,7 @@
           },
           "targets": [
             {
-              "expr": "count(rancher_services)",
+              "expr": "count(rancher_service_health)",
               "intervalFactor": 2,
               "legendFormat": "",
               "refId": "A",
@@ -405,7 +405,7 @@
           ],
           "targets": [
             {
-              "expr": "rancher_services",
+              "expr": "rancher_service_health",
               "intervalFactor": 2,
               "legendFormat": "{{name}}",
               "metric": "",

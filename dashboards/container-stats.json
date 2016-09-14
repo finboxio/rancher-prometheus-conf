@@ -407,7 +407,7 @@
             {
               "expr": "rancher_service_health",
               "intervalFactor": 2,
-              "legendFormat": "{{name}}",
+              "legendFormat": "{{service}}",
               "metric": "",
               "refId": "A",
               "step": 30

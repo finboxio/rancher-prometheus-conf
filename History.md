@@ -1,4 +1,11 @@
 
+0.0.5 / 2016-09-14
+==================
+
+  * rename ranch-eye to cadvisor-exporter
+  * add host labels to container/host exporters
+  * add host labels to prometheus scrapes
+
 0.0.4 / 2016-09-14
 ==================
 

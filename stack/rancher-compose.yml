@@ -47,3 +47,16 @@ rancher-exporter:
     response_timeout: 2000
     reinitializing_timeout: 10000
   scale: 1
+graphite-exporter:
+  health_check:
+    port: 9108
+    interval: 2000
+    initializing_timeout: 10000
+    unhealthy_threshold: 3
+    strategy: recreate
+    healthy_threshold: 2
+    response_timeout: 2000
+    reinitializing_timeout: 10000
+  scale: 1
+graphite-exporter-conf:
+  scale: 1

@@ -11,6 +11,6 @@ notify-output = true
 
 [[ template ]]
 source = "/etc/rancher-conf/prometheus.yml.tmpl"
-dest = "/etc/rancher-conf/prometheus.yml"
+dest = "/etc/rancher-conf/prometheus.yml.pre"
 notify-cmd = "sh /etc/rancher-conf/reload.sh"
 notify-output = true

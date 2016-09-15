@@ -1,5 +1,8 @@
 FROM finboxio/rancher-conf-aws:dev
 
+ADD https://github.com/bronze1man/yaml2json/raw/master/builds/linux_amd64/yaml2json /usr/sbin/yaml2json
+RUN chmod +x /usr/sbin/yaml2json
+
 ADD config.toml /etc/rancher-conf/
 ADD prometheus.yml.tmpl /etc/rancher-conf/
 ADD reload.sh.tmpl /etc/rancher-conf/

@@ -10,6 +10,9 @@ prometheus:
     response_timeout: 2000
     reinitializing_timeout: 10000
   metadata:
+    rancher_metrics:
+      host: 10.0.2.2
+      port: 9108
     grafana:
       datasources:
         Prometheus:
@@ -46,17 +49,4 @@ rancher-exporter:
     healthy_threshold: 2
     response_timeout: 2000
     reinitializing_timeout: 10000
-  scale: 1
-graphite-exporter:
-  health_check:
-    port: 9108
-    interval: 2000
-    initializing_timeout: 10000
-    unhealthy_threshold: 3
-    strategy: recreate
-    healthy_threshold: 2
-    response_timeout: 2000
-    reinitializing_timeout: 10000
-  scale: 1
-graphite-exporter-conf:
   scale: 1

@@ -50,18 +50,22 @@ scrape_configs:
     {{- end }}
     {{- end }}
 
+  {{- with service }}
+  {{- if (.Metadata.GetValue "rancher_metrics") }}
+  {{ with .Metadata.GetValue "rancher_metrics" }}
   - job_name: 'RancherMetrics'
+    scheme: {{ if .scheme }}{{ .scheme }}{{ else }}http{{ end }}
+    {{ if and .user .password -}}
+    basic_auth:
+      username: '{{ .user }}'
+      password: '{{ .password }}'
+    {{ end -}}
     static_configs:
-    {{- with service "graphite-exporter" }}
-    {{- range .Containers }}
-    {{- if eq .State "running" }}
       - targets:
-        - {{ .Address }}:9108
-        labels:
-          instance: {{ .Host.Name }}
-    {{- end }}
-    {{- end }}
-    {{- end }}
+        - {{ .host }}:{{ if .port }}{{ .port }}{{ else }}9108{{ end }}
+  {{- end }}
+  {{- end }}
+  {{- end }}
 
   - job_name: 'Prometheus'
     static_configs:

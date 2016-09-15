@@ -4,7 +4,7 @@ prometheus:
   stdin_open: true
   entrypoint: /opt/rancher/bin/run.sh
   environment:
-    PROMETHEUS_DATA_DIR: /ebs/prometheus
+    PROMETHEUS_DATA_DIR: /etc/prometheus
   labels:
     io.rancher.sidekicks: prometheus-conf,prometheus-serve
     lb.haproxy.9090.frontend: 80/http
@@ -19,7 +19,7 @@ prometheus-conf:
   labels:
     io.rancher.container.pull_image: always
   volumes:
-    - /ebs:/ebs
+    - /etc/prometheus
     - /var/run/docker.sock:/var/run/docker.sock
     - /usr/local/bin/docker:/usr/local/bin/docker
     - /etc/rancher-conf
@@ -44,27 +44,6 @@ rancher-exporter:
     lb.haproxy.9010.domain: http://re.rancher
     io.rancher.container.create_agent: true
     io.rancher.container.agent.role: environment
-
-graphite-exporter:
-  image: prom/graphite-exporter
-  entrypoint: /opt/rancher/bin/graphite-exporter.sh
-  volumes_from:
-    - graphite-exporter-conf
-  labels:
-    io.rancher.sidekicks: graphite-exporter-conf
-    lb.haproxy.9108.frontend: 80/http
-    lb.haproxy.9108.domain: http://ge.rancher
-    lb.haproxy.9109.frontend: 9109/tcp
-
-graphite-exporter-conf:
-  image: finboxio/rancher-prometheus-conf:dev
-  entrypoint: /bin/true
-  labels:
-    io.rancher.container.start_once: 'true'
-    io.rancher.container.pull_image: always
-  volumes:
-    - /etc/rancher-conf
-    - /opt/rancher/bin
 
 cadvisor-exporter:
   image: infinityworks/ranch-eye:03

@@ -38,6 +38,8 @@
       "height": "200px",
       "panels": [
         {
+          "aliasColors": {
+          },
           "bars": false,
           "datasource": "Prometheus",
           "editable": true,
@@ -861,11 +863,13 @@
           ],
           "targets": [
             {
-              "expr": "rancher_hosts",
+              "expr": "rancher_host_health",
               "intervalFactor": 2,
-              "legendFormat": "{{name}}",
+              "legendFormat": "{{host}}",
               "refId": "A",
-              "step": 10
+              "step": 10,
+              "metric": "rancher_host_health",
+              "interval": ""
             }
           ],
           "title": "Host Health - Rancher",
@@ -918,9 +922,9 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "rancher_hosts",
+              "expr": "rancher_host_health",
               "intervalFactor": 1,
-              "legendFormat": "{{name}}",
+              "legendFormat": "{{host}}",
               "refId": "A",
               "step": 5
             }
@@ -1142,6 +1146,16 @@
             "text": "All",
             "value": "$__all",
             "selected": true
+          },
+          {
+            "text": "dm-host-1",
+            "value": "dm-host-1",
+            "selected": false
+          },
+          {
+            "text": "dm-host-2",
+            "value": "dm-host-2",
+            "selected": false
           }
         ],
         "query": "node_boot_time",

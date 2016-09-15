@@ -1,4 +1,13 @@
 
+0.0.4 / 2016-09-14
+==================
+
+  * add graphite exporter for rancher stats
+  * add graphite exporter for rancher stats, add rancher exporter job
+  * update dashboards
+  * update rancher metrics dash
+  * add rancher-exporter, update dashboards
+
 0.0.3 / 2016-09-13
 ==================
 

@@ -1,4 +1,10 @@
 
+0.0.8 / 2016-09-15
+==================
+
+  * run rancher stats scrape against external graphite exporter
+  * remove Graphite Exporter from stack status dash
+
 0.0.7 / 2016-09-14
 ==================
 

@@ -47,7 +47,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
-          "datasource": "influxdb",
+          "datasource": "Prometheus",
           "editable": true,
           "error": false,
           "format": "none",
@@ -80,7 +80,7 @@
               "calculatedInterval": "1m",
               "dsType": "influxdb",
               "errors": {},
-              "expr": "",
+              "expr": "rancher_jvm_os_SystemLoadAverage",
               "groupBy": [
                 {
                   "params": [
@@ -97,7 +97,7 @@
               ],
               "intervalFactor": 2,
               "measurement": "jvm.os.SystemLoadAverage",
-              "metric": "",
+              "metric": "rancher_jvm_os_SystemLoadAverage",
               "policy": "default",
               "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%223600s%22%2C%22end_input%22%3A%222015-11-10%2016%3A24%22%2C%22step_input%22%3A%22%22%2C%22tab%22%3A0%7D%5D",
               "query": "SELECT mean(\"value\") FROM \"jvm.os.SystemLoadAverage\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
@@ -118,7 +118,9 @@
                 ]
               ],
               "tags": [],
-              "target": "movingAverage(servers.944b1a09387f.jvm.os.SystemLoadAverage, '30min')"
+              "target": "movingAverage(servers.944b1a09387f.jvm.os.SystemLoadAverage, '30min')",
+              "step": 60,
+              "legendFormat": "{{server}}"
             }
           ],
           "thresholds": "5,8",
@@ -144,7 +146,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "influxdb",
+          "datasource": "Prometheus",
           "decimals": 1,
           "editable": true,
           "error": false,
@@ -178,7 +180,7 @@
               "calculatedInterval": "1m",
               "dsType": "influxdb",
               "errors": {},
-              "expr": "",
+              "expr": "rancher_jvm_runtime_Uptime",
               "groupBy": [
                 {
                   "params": [
@@ -196,7 +198,7 @@
               "hide": false,
               "intervalFactor": 2,
               "measurement": "jvm.runtime.Uptime",
-              "metric": "",
+              "metric": "rancher_jvm_runtime_Uptime",
               "policy": "default",
               "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%223600s%22%2C%22end_input%22%3A%222015-11-10%2016%3A24%22%2C%22step_input%22%3A%22%22%2C%22tab%22%3A0%7D%5D",
               "query": "SELECT mean(\"value\") FROM \"jvm.runtime.Uptime\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
@@ -217,7 +219,9 @@
                 ]
               ],
               "tags": [],
-              "target": "servers.944b1a09387f.jvm.runtime.Uptime"
+              "target": "servers.944b1a09387f.jvm.runtime.Uptime",
+              "step": 60,
+              "legendFormat": ""
             }
           ],
           "thresholds": "600000,6000000",
@@ -237,7 +241,7 @@
         {
           "aliasColors": {},
           "bars": true,
-          "datasource": "influxdb",
+          "datasource": "Prometheus",
           "editable": true,
           "error": false,
           "fill": 2,
@@ -276,7 +280,7 @@
               "calculatedInterval": "2s",
               "dsType": "influxdb",
               "errors": {},
-              "expr": "",
+              "expr": "rancher_jvm_memory_HeapMemoryUsage_used",
               "groupBy": [
                 {
                   "params": [
@@ -293,7 +297,7 @@
               ],
               "intervalFactor": 2,
               "measurement": "jvm.memory.HeapMemoryUsage.used",
-              "metric": "",
+              "metric": "rancher_jvm_memory_HeapMemoryUsage_used",
               "policy": "default",
               "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%223601s%22%2C%22end_input%22%3A%222015-11-10%2016%3A26%22%2C%22step_input%22%3A%22%22%2C%22stacked%22%3Afalse%2C%22tab%22%3A0%7D%5D",
               "query": "SELECT mean(\"value\") FROM \"jvm.memory.HeapMemoryUsage.used\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
@@ -314,13 +318,15 @@
                 ]
               ],
               "tags": [],
-              "target": "aliasByMetric(summarize(servers.*.jvm.memory.HeapMemoryUsage.*, '30m', 'avg', false))"
+              "target": "aliasByMetric(summarize(servers.*.jvm.memory.HeapMemoryUsage.*, '30m', 'avg', false))",
+              "step": 20,
+              "legendFormat": "{{server}} used"
             },
             {
               "calculatedInterval": "2s",
               "dsType": "influxdb",
               "errors": {},
-              "expr": "",
+              "expr": "rancher_jvm_memory_HeapMemoryUsage_committed",
               "groupBy": [
                 {
                   "params": [
@@ -337,7 +343,7 @@
               ],
               "intervalFactor": 2,
               "measurement": "jvm.memory.HeapMemoryUsage.committed",
-              "metric": "",
+              "metric": "rancher_jvm_memory_HeapMemoryUsage_committed",
               "policy": "default",
               "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%223601s%22%2C%22end_input%22%3A%222015-11-10%2016%3A26%22%2C%22step_input%22%3A%22%22%2C%22stacked%22%3Afalse%2C%22tab%22%3A0%7D%5D",
               "query": "SELECT mean(\"value\") FROM \"jvm.memory.HeapMemoryUsage.committed\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
@@ -358,7 +364,9 @@
                 ]
               ],
               "tags": [],
-              "target": "aliasByMetric(summarize(servers.*.jvm.memory.HeapMemoryUsage.*, '30m', 'avg', false))"
+              "target": "aliasByMetric(summarize(servers.*.jvm.memory.HeapMemoryUsage.*, '30m', 'avg', false))",
+              "step": 20,
+              "legendFormat": "{{server}} committed"
             }
           ],
           "timeFrom": null,
@@ -410,7 +418,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "influxdb",
+          "datasource": "Prometheus",
           "editable": true,
           "error": false,
           "format": "none",
@@ -443,7 +451,7 @@
               "calculatedInterval": "10m",
               "dsType": "influxdb",
               "errors": {},
-              "expr": "",
+              "expr": "rancher_jvm_gc_PS_MarkSweep_CollectionCount",
               "groupBy": [
                 {
                   "params": [
@@ -460,7 +468,7 @@
               ],
               "intervalFactor": 2,
               "measurement": "jvm.gc.MarkSweepCompact.CollectionCount",
-              "metric": "",
+              "metric": "rancher_jvm_gc_PS_MarkSweep_CollectionCoun",
               "policy": "default",
               "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%2221600s%22%2C%22end_input%22%3A%222015-11-11%2010%3A44%22%2C%22step_input%22%3A%22%22%2C%22tab%22%3A0%7D%5D",
               "query": "SELECT mean(\"value\") FROM \"jvm.gc.MarkSweepCompact.CollectionCount\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
@@ -481,7 +489,9 @@
                 ]
               ],
               "tags": [],
-              "target": "derivative(servers.944b1a09387f.jvm.gc.PS_MarkSweep.CollectionCount)"
+              "target": "derivative(servers.944b1a09387f.jvm.gc.PS_MarkSweep.CollectionCount)",
+              "step": 60,
+              "legendFormat": "{{server}}"
             }
           ],
           "thresholds": "",
@@ -500,7 +510,7 @@
         {
           "aliasColors": {},
           "bars": true,
-          "datasource": "influxdb",
+          "datasource": "Prometheus",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -541,7 +551,7 @@
               "datasourceErrors": {},
               "dsType": "influxdb",
               "errors": {},
-              "expr": "",
+              "expr": "rancher_metric_event_failed_event_failed_agent_request",
               "groupBy": [
                 {
                   "params": [
@@ -558,7 +568,7 @@
               ],
               "intervalFactor": 2,
               "measurement": "metric.event.failed.event_failed_agent_request.Count",
-              "metric": "",
+              "metric": "rancher_metric_event_failed_event_failed_agent_request",
               "policy": "default",
               "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%2221600s%22%2C%22end_input%22%3A%222015-11-10%2016%3A3%22%2C%22step_input%22%3A%22%22%2C%22stacked%22%3Afalse%2C%22tab%22%3A0%7D%5D",
               "query": "SELECT mean(\"value\") FROM \"metric.event.failed.event_failed_agent_request.Count\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
@@ -579,14 +589,16 @@
                 ]
               ],
               "tags": [],
-              "target": "alias(derivative(servers.*.metric.event.failed.event_failed_agent_request.Count), 'Agent Request')"
+              "target": "alias(derivative(servers.*.metric.event.failed.event_failed_agent_request.Count), 'Agent Request')",
+              "step": 10,
+              "legendFormat": "{{server}} failed agent requests"
             },
             {
               "calculatedInterval": "20s",
               "datasourceErrors": {},
               "dsType": "influxdb",
               "errors": {},
-              "expr": "",
+              "expr": "rancher_metric_event_failed_event_failed_ping",
               "groupBy": [
                 {
                   "params": [
@@ -604,7 +616,7 @@
               "hide": false,
               "intervalFactor": 2,
               "measurement": "metric.event.failed.event_failed_ping.Count",
-              "metric": "",
+              "metric": "rancher_metric_event_failed_event_failed_ping",
               "policy": "default",
               "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%2221600s%22%2C%22end_input%22%3A%222015-11-10%2016%3A3%22%2C%22step_input%22%3A%22%22%2C%22stacked%22%3Afalse%2C%22tab%22%3A0%7D%5D",
               "query": "SELECT mean(\"value\") FROM \"metric.event.failed.event_failed_ping.Count\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
@@ -625,7 +637,9 @@
                 ]
               ],
               "tags": [],
-              "target": "alias(derivative(servers.*.metric.event.failed.event_failed_compute_instance_deactivate.Count), 'Instance Deactivate')"
+              "target": "alias(derivative(servers.*.metric.event.failed.event_failed_compute_instance_deactivate.Count), 'Instance Deactivate')",
+              "step": 10,
+              "legendFormat": "{{server}} failed pings"
             }
           ],
           "timeFrom": null,
@@ -668,7 +682,7 @@
         {
           "aliasColors": {},
           "bars": true,
-          "datasource": "influxdb",
+          "datasource": "Prometheus",
           "editable": true,
           "error": false,
           "fill": 2,
@@ -740,52 +754,12 @@
                 ]
               ],
               "tags": [],
-              "target": "alias(derivative(servers.*.metric.event.request.event_request_ping.Count), 'Request Ping')"
-            },
-            {
-              "calculatedInterval": "20s",
-              "dsType": "influxdb",
-              "errors": {},
-              "expr": "",
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "hide": false,
+              "target": "alias(derivative(servers.*.metric.event.request.event_request_ping.Count), 'Request Ping')",
+              "expr": "rancher_metric_event_failed_event_failed_ping",
               "intervalFactor": 2,
-              "measurement": "metric.event.publish.event_publish_ping.Count",
-              "metric": "",
-              "policy": "default",
-              "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%2221600s%22%2C%22end_input%22%3A%222015-11-10%2016%3A9%22%2C%22step_input%22%3A%22%22%2C%22stacked%22%3Afalse%2C%22tab%22%3A0%7D%5D",
-              "query": "SELECT mean(\"value\") FROM \"metric.event.publish.event_publish_ping.Count\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": [],
-              "target": "alias(derivative(servers.*.metric.event.failed.event_failed_ping.Count), 'Failed Ping')"
+              "metric": "rancher_metric_event_failed_event_failed_ping",
+              "step": 10,
+              "legendFormat": "{{server}} ping failures"
             },
             {
               "dsType": "influxdb",
@@ -824,7 +798,13 @@
                 ]
               ],
               "tags": [],
-              "target": "alias(derivative(servers.*.metric.event.publish.event_publish_ping.Count), 'Publish Ping')"
+              "target": "alias(derivative(servers.*.metric.event.publish.event_publish_ping.Count), 'Publish Ping')",
+              "expr": "rancher_metric_event_publish_event_publish_ping_reply",
+              "intervalFactor": 2,
+              "metric": "rancher_metric_event_publish_event_publish_ping_reply",
+              "step": 10,
+              "legendFormat": "{{server}} ping replies",
+              "interval": ""
             },
             {
               "dsType": "influxdb",
@@ -863,7 +843,12 @@
                 ]
               ],
               "tags": [],
-              "target": "alias(derivative(servers.*.metric.event.publish.event_publish_ping_reply.Count), 'Publish Ping Reply')"
+              "target": "alias(derivative(servers.*.metric.event.publish.event_publish_ping_reply.Count), 'Publish Ping Reply')",
+              "expr": "rancher_metric_event_request_event_request_ping",
+              "intervalFactor": 2,
+              "metric": "rancher_metric_event_request_event_request_ping",
+              "step": 10,
+              "legendFormat": "{{server}} ping requests"
             }
           ],
           "timeFrom": null,
@@ -898,7 +883,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "Prometheus",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -936,7 +921,7 @@
               "calculatedInterval": "1m",
               "dsType": "influxdb",
               "errors": {},
-              "expr": "",
+              "expr": "rancher_thread_pool_process_RejectedExecutionCount",
               "groupBy": [
                 {
                   "params": [
@@ -954,7 +939,7 @@
               "hide": false,
               "intervalFactor": 2,
               "measurement": "thread_pool.process.RejectedExecutionCount",
-              "metric": "",
+              "metric": "rancher_thread_pool_process_RejectedExecutionCount",
               "policy": "default",
               "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%2221600s%22%2C%22end_input%22%3A%222015-11-10%2016%3A15%22%2C%22step_input%22%3A%22%22%2C%22stacked%22%3Afalse%2C%22tab%22%3A0%7D%5D",
               "query": "SELECT mean(\"value\") FROM \"thread_pool.process.RejectedExecutionCount\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
@@ -975,7 +960,9 @@
                 ]
               ],
               "tags": [],
-              "target": "derivative(servers.*.metric.process_server.process_execution_process_already_in_progress.Count)"
+              "target": "derivative(servers.*.metric.process_server.process_execution_process_already_in_progress.Count)",
+              "step": 10,
+              "legendFormat": "{{server}} rejected executions"
             },
             {
               "dsType": "influxdb",
@@ -1014,7 +1001,12 @@
                 ]
               ],
               "tags": [],
-              "target": "derivative(servers.*.metric.process_server.process_execution_resource_busy.Count)"
+              "target": "derivative(servers.*.metric.process_server.process_execution_resource_busy.Count)",
+              "expr": "rancher_thread_pool_process_ActiveCount",
+              "intervalFactor": 2,
+              "metric": "rancher_thread_pool_process_ActiveCount",
+              "step": 10,
+              "legendFormat": "{{server}} active processes"
             },
             {
               "dsType": "influxdb",
@@ -1053,7 +1045,12 @@
                 ]
               ],
               "tags": [],
-              "target": "derivative(servers.*.metric.process_server.process_execution_timeout.Count)"
+              "target": "derivative(servers.*.metric.process_server.process_execution_timeout.Count)",
+              "expr": "rancher_metric_process_server_process_execution_resource_busy_Count",
+              "intervalFactor": 2,
+              "metric": "rancher_metric_process_server_process_execution_resource_busy_Count",
+              "step": 10,
+              "legendFormat": "{{server}} resource busy errors"
             }
           ],
           "timeFrom": null,
@@ -1096,7 +1093,7 @@
         {
           "aliasColors": {},
           "bars": true,
-          "datasource": "influxdb",
+          "datasource": "Prometheus",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -1128,14 +1125,14 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "span": 6,
-          "stack": true,
+          "stack": false,
           "steppedLine": false,
           "targets": [
             {
               "calculatedInterval": "2s",
               "dsType": "influxdb",
               "errors": {},
-              "expr": "",
+              "expr": "rancher_database_MaxActive",
               "groupBy": [
                 {
                   "params": [
@@ -1152,7 +1149,7 @@
               ],
               "intervalFactor": 2,
               "measurement": "database.MaxActive",
-              "metric": "",
+              "metric": "rancher_database_MaxActive",
               "policy": "default",
               "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%223600s%22%2C%22end_input%22%3A%222015-11-10%2016%3A20%22%2C%22step_input%22%3A%22%22%2C%22stacked%22%3Afalse%2C%22tab%22%3A0%7D%5D",
               "query": "SELECT mean(\"value\") FROM \"database.MaxActive\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
@@ -1174,13 +1171,16 @@
               ],
               "tags": [],
               "target": "aliasByMetric(servers.*.database.NumActive)",
-              "textEditor": false
+              "textEditor": false,
+              "step": 10,
+              "legendFormat": "{{server}} max active",
+              "interval": ""
             },
             {
               "calculatedInterval": "2s",
               "dsType": "influxdb",
               "errors": {},
-              "expr": "",
+              "expr": "rancher_database_NumActive",
               "groupBy": [
                 {
                   "params": [
@@ -1197,7 +1197,7 @@
               ],
               "intervalFactor": 2,
               "measurement": "database.NumActive",
-              "metric": "",
+              "metric": "rancher_database_NumActive",
               "policy": "default",
               "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%223600s%22%2C%22end_input%22%3A%222015-11-10%2016%3A20%22%2C%22step_input%22%3A%22%22%2C%22stacked%22%3Afalse%2C%22tab%22%3A0%7D%5D",
               "query": "SELECT mean(\"value\") FROM \"database.NumActive\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
@@ -1218,13 +1218,15 @@
                 ]
               ],
               "tags": [],
-              "target": "aliasByMetric(servers.*.database.NumIdle)"
+              "target": "aliasByMetric(servers.*.database.NumIdle)",
+              "step": 10,
+              "legendFormat": "{{server}} num active"
             },
             {
               "calculatedInterval": "2s",
               "dsType": "influxdb",
               "errors": {},
-              "expr": "",
+              "expr": "rancher_database_NumIdle",
               "groupBy": [
                 {
                   "params": [
@@ -1241,7 +1243,7 @@
               ],
               "intervalFactor": 2,
               "measurement": "database.NumIdle",
-              "metric": "",
+              "metric": "rancher_database_NumIdle",
               "policy": "default",
               "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%223600s%22%2C%22end_input%22%3A%222015-11-10%2016%3A20%22%2C%22step_input%22%3A%22%22%2C%22stacked%22%3Afalse%2C%22tab%22%3A0%7D%5D",
               "query": "SELECT mean(\"value\") FROM \"database.NumIdle\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
@@ -1262,7 +1264,9 @@
                 ]
               ],
               "tags": [],
-              "target": "aliasByMetric(servers.*.database.NumIdle)"
+              "target": "aliasByMetric(servers.*.database.NumIdle)",
+              "step": 10,
+              "legendFormat": "{{server}} num idle"
             }
           ],
           "timeFrom": null,
@@ -1299,7 +1303,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "Prometheus",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -1337,7 +1341,7 @@
               "calculatedInterval": "2s",
               "dsType": "influxdb",
               "errors": {},
-              "expr": "",
+              "expr": "rancher_thread_pool_core_ActiveCount",
               "groupBy": [
                 {
                   "params": [
@@ -1354,7 +1358,7 @@
               ],
               "intervalFactor": 2,
               "measurement": "thread_pool.core.ActiveCount",
-              "metric": "",
+              "metric": "rancher_thread_pool_core_ActiveCount",
               "policy": "default",
               "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%223600s%22%2C%22end_input%22%3A%222015-11-10%2016%3A21%22%2C%22step_input%22%3A%22%22%2C%22stacked%22%3Afalse%2C%22tab%22%3A0%7D%5D",
               "query": "SELECT mean(\"value\") FROM \"thread_pool.core.ActiveCount\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
@@ -1375,13 +1379,15 @@
                 ]
               ],
               "tags": [],
-              "target": "aliasByMetric(servers.*.thread_pool.process.ActiveCount)"
+              "target": "aliasByMetric(servers.*.thread_pool.process.ActiveCount)",
+              "step": 10,
+              "legendFormat": "{{server}} core active"
             },
             {
               "calculatedInterval": "2s",
               "dsType": "influxdb",
               "errors": {},
-              "expr": "",
+              "expr": "rancher_thread_pool_core_RejectedExecutionCount",
               "groupBy": [
                 {
                   "params": [
@@ -1398,7 +1404,7 @@
               ],
               "intervalFactor": 2,
               "measurement": "thread_pool.core.RejectedExecutionCount",
-              "metric": "",
+              "metric": "rancher_thread_pool_core_RejectedExecutionCount",
               "policy": "default",
               "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%223600s%22%2C%22end_input%22%3A%222015-11-10%2016%3A21%22%2C%22step_input%22%3A%22%22%2C%22stacked%22%3Afalse%2C%22tab%22%3A0%7D%5D",
               "query": "SELECT mean(\"value\") FROM \"thread_pool.core.RejectedExecutionCount\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
@@ -1419,13 +1425,15 @@
                 ]
               ],
               "tags": [],
-              "target": "aliasByMetric(servers.*.thread_pool.process.LargestPoolSize)"
+              "target": "aliasByMetric(servers.*.thread_pool.process.LargestPoolSize)",
+              "step": 10,
+              "legendFormat": "{{server}} core rejected"
             },
             {
               "calculatedInterval": "2s",
               "dsType": "influxdb",
               "errors": {},
-              "expr": "",
+              "expr": "rancher_thread_pool_process_ActiveCount",
               "groupBy": [
                 {
                   "params": [
@@ -1442,7 +1450,7 @@
               ],
               "intervalFactor": 2,
               "measurement": "thread_pool.process.ActiveCount",
-              "metric": "",
+              "metric": "rancher_thread_pool_process_ActiveCount",
               "policy": "default",
               "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%223600s%22%2C%22end_input%22%3A%222015-11-10%2016%3A21%22%2C%22step_input%22%3A%22%22%2C%22stacked%22%3Afalse%2C%22tab%22%3A0%7D%5D",
               "query": "SELECT mean(\"value\") FROM \"thread_pool.process.ActiveCount\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
@@ -1463,13 +1471,15 @@
                 ]
               ],
               "tags": [],
-              "target": "aliasByMetric(servers.*.thread_pool.process.LargestPoolSize)"
+              "target": "aliasByMetric(servers.*.thread_pool.process.LargestPoolSize)",
+              "step": 10,
+              "legendFormat": "{{server}} process active"
             },
             {
               "calculatedInterval": "2s",
               "dsType": "influxdb",
               "errors": {},
-              "expr": "",
+              "expr": "rancher_jvm_thread_ThreadCount",
               "groupBy": [
                 {
                   "params": [
@@ -1486,7 +1496,7 @@
               ],
               "intervalFactor": 2,
               "measurement": "jvm.thread.ThreadCount",
-              "metric": "",
+              "metric": "rancher_jvm_thread_ThreadCount",
               "policy": "default",
               "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%223600s%22%2C%22end_input%22%3A%222015-11-10%2016%3A21%22%2C%22step_input%22%3A%22%22%2C%22stacked%22%3Afalse%2C%22tab%22%3A0%7D%5D",
               "query": "SELECT mean(\"value\") FROM \"jvm.thread.ThreadCount\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
@@ -1508,13 +1518,15 @@
                 ]
               ],
               "tags": [],
-              "target": "aliasByMetric(servers.*.thread_pool.process.LargestPoolSize)"
+              "target": "aliasByMetric(servers.*.thread_pool.process.LargestPoolSize)",
+              "step": 10,
+              "legendFormat": "{{server}} thread count"
             },
             {
               "calculatedInterval": "2s",
               "dsType": "influxdb",
               "errors": {},
-              "expr": "",
+              "expr": "rancher_thread_pool_process_RejectedExecutionCount",
               "groupBy": [
                 {
                   "params": [
@@ -1531,7 +1543,7 @@
               ],
               "intervalFactor": 2,
               "measurement": "thread_pool.process.RejectedExecutionCount",
-              "metric": "",
+              "metric": "rancher_thread_pool_process_RejectedExecutionCount",
               "policy": "default",
               "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%223600s%22%2C%22end_input%22%3A%222015-11-10%2016%3A21%22%2C%22step_input%22%3A%22%22%2C%22stacked%22%3Afalse%2C%22tab%22%3A0%7D%5D",
               "query": "SELECT mean(\"value\") FROM \"thread_pool.process.RejectedExecutionCount\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
@@ -1553,7 +1565,9 @@
                 ]
               ],
               "tags": [],
-              "target": "aliasByMetric(servers.*.thread_pool.process.LargestPoolSize)"
+              "target": "aliasByMetric(servers.*.thread_pool.process.LargestPoolSize)",
+              "step": 10,
+              "legendFormat": "{{server}} process rejected"
             }
           ],
           "timeFrom": null,
@@ -1596,7 +1610,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "Prometheus",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -1634,7 +1648,7 @@
               "calculatedInterval": "2s",
               "dsType": "influxdb",
               "errors": {},
-              "expr": "",
+              "expr": "rancher_jvm_thread_ThreadCount",
               "groupBy": [
                 {
                   "params": [
@@ -1651,7 +1665,7 @@
               ],
               "intervalFactor": 2,
               "measurement": "jvm.thread.ThreadCount",
-              "metric": "",
+              "metric": "rancher_jvm_thread_ThreadCount",
               "policy": "default",
               "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%223601s%22%2C%22end_input%22%3A%222015-11-10%2016%3A29%22%2C%22step_input%22%3A%22%22%2C%22stacked%22%3Afalse%2C%22tab%22%3A0%7D%5D",
               "query": "SELECT mean(\"value\") FROM \"jvm.thread.ThreadCount\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
@@ -1672,7 +1686,8 @@
                 ]
               ],
               "tags": [],
-              "target": "servers.*.jvm.thread.ThreadCount"
+              "target": "servers.*.jvm.thread.ThreadCount",
+              "step": 10
             }
           ],
           "timeFrom": null,
@@ -1713,7 +1728,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
-          "datasource": "influxdb",
+          "datasource": "Prometheus",
           "editable": true,
           "error": false,
           "format": "none",
@@ -1746,7 +1761,7 @@
               "calculatedInterval": "20s",
               "dsType": "influxdb",
               "errors": {},
-              "expr": "",
+              "expr": "rancher_jvm_os_OpenFileDescriptorCount",
               "groupBy": [
                 {
                   "params": [
@@ -1763,7 +1778,7 @@
               ],
               "intervalFactor": 2,
               "measurement": "jvm.os.OpenFileDescriptorCount",
-              "metric": "",
+              "metric": "rancher_jvm_os_OpenFileDescriptorCount",
               "policy": "default",
               "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%22900s%22%2C%22end_input%22%3A%222015-11-11%2010%3A37%22%2C%22step_input%22%3A%22%22%2C%22tab%22%3A0%7D%5D",
               "query": "SELECT mean(\"value\") FROM \"jvm.os.OpenFileDescriptorCount\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
@@ -1784,7 +1799,8 @@
                 ]
               ],
               "tags": [],
-              "target": "servers.*.jvm.os.OpenFileDescriptorCount"
+              "target": "servers.*.jvm.os.OpenFileDescriptorCount",
+              "step": 60
             }
           ],
           "thresholds": "1024,1500",
@@ -1811,7 +1827,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "Prometheus",
           "decimals": 0,
           "editable": true,
           "error": false,
@@ -1849,7 +1865,7 @@
               "calculatedInterval": "20s",
               "dsType": "influxdb",
               "errors": {},
-              "expr": "",
+              "expr": "rancher_metric_process_server_process_execution_timeout_Count",
               "groupBy": [
                 {
                   "params": [
@@ -1867,7 +1883,7 @@
               "hide": false,
               "intervalFactor": 2,
               "measurement": "metric.process_server.process_execution_timeout.Count",
-              "metric": "",
+              "metric": "rancher_metric_process_server_process_execution_timeout_Count",
               "policy": "default",
               "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%2221600s%22%2C%22end_input%22%3A%222015-11-10%2016%3A9%22%2C%22step_input%22%3A%22%22%2C%22stacked%22%3Afalse%2C%22tab%22%3A0%7D%5D",
               "query": "SELECT mean(\"value\") FROM \"metric.process_server.process_execution_timeout.Count\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
@@ -1888,7 +1904,8 @@
                 ]
               ],
               "tags": [],
-              "target": "alias(derivative(servers.*.metric.process_server.process_execution_timeout.Count), 'Timeouts')"
+              "target": "alias(derivative(servers.*.metric.process_server.process_execution_timeout.Count), 'Timeouts')",
+              "step": 10
             }
           ],
           "timeFrom": null,
@@ -1923,7 +1940,7 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "influxdb",
+          "datasource": "Prometheus",
           "editable": true,
           "error": false,
           "fill": 1,
@@ -1961,7 +1978,7 @@
               "calculatedInterval": "2s",
               "dsType": "influxdb",
               "errors": {},
-              "expr": "",
+              "expr": "rancher_metric_event_time_event_time_ping",
               "groupBy": [
                 {
                   "params": [
@@ -1978,7 +1995,7 @@
               ],
               "intervalFactor": 2,
               "measurement": "metric.event.time.event_time_ping.Mean",
-              "metric": "",
+              "metric": "rancher_metric_event_time_event_time_ping",
               "policy": "default",
               "prometheusLink": "http://10.196.94.100:9090/graph#%5B%7B%22expr%22%3A%22%22%2C%22range_input%22%3A%22900s%22%2C%22end_input%22%3A%222015-11-11%2010%3A39%22%2C%22step_input%22%3A%22%22%2C%22stacked%22%3Afalse%2C%22tab%22%3A0%7D%5D",
               "query": "SELECT mean(\"value\") FROM \"metric.event.time.event_time_ping.Mean\" WHERE $timeFilter GROUP BY time($interval) fill(null)",
@@ -1999,7 +2016,8 @@
                 ]
               ],
               "tags": [],
-              "target": "servers.*.thread_pool.process.ActiveCount"
+              "target": "servers.*.thread_pool.process.ActiveCount",
+              "step": 10
             }
           ],
           "timeFrom": null,

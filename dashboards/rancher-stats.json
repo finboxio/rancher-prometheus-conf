@@ -641,7 +641,7 @@
               "expr": "rancher_database_MaxActive",
               "intervalFactor": 2,
               "refId": "A",
-              "metric": "rancher_database_MaxActive",
+              "metric": "",
               "step": 10,
               "legendFormat": "{{server}} max"
             },
@@ -649,7 +649,7 @@
               "expr": "rancher_database_NumActive",
               "intervalFactor": 2,
               "refId": "B",
-              "metric": "rancher_database_NumActive",
+              "metric": "",
               "step": 10,
               "legendFormat": "{{server}} active"
             },
@@ -657,7 +657,7 @@
               "expr": "rancher_database_NumIdle",
               "intervalFactor": 2,
               "refId": "C",
-              "metric": "rancher_database_NumIdle",
+              "metric": "",
               "step": 10,
               "legendFormat": "{{server}} idle"
             }

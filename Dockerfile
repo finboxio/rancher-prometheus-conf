@@ -1,4 +1,6 @@
-FROM finboxio/rancher-conf-aws:dev
+FROM finboxio/rancher-conf-aws
+
+RUN apk add --no-cache docker
 
 ADD https://github.com/bronze1man/yaml2json/raw/master/builds/linux_amd64/yaml2json /usr/sbin/yaml2json
 RUN chmod +x /usr/sbin/yaml2json

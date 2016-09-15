@@ -293,7 +293,7 @@
               "calculatedInterval": "1m",
               "datasourceErrors": {},
               "errors": {},
-              "expr": "rancher_service_health{service=~\"ranch-eye\"}",
+              "expr": "rancher_service_health{service=~\"cadvisor-exporter\"}",
               "intervalFactor": 2,
               "legendFormat": "",
               "metric": "",
@@ -302,7 +302,7 @@
             }
           ],
           "thresholds": "0,1",
-          "title": "Ranch-Eye",
+          "title": "CAdvisor Exporter",
           "type": "singlestat",
           "valueFontSize": "100%",
           "valueMaps": [

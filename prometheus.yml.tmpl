@@ -7,7 +7,7 @@ global:
 scrape_configs:
   - job_name: 'ContainerMetrics'
     static_configs:
-    {{- with service "ranch-eye" }}
+    {{- with service "cadvisor-exporter" }}
     {{- range .Containers }}
     {{- if eq .State "running" }}
       - targets:

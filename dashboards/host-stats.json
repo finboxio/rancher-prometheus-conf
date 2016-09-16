@@ -38,8 +38,7 @@
       "height": "200px",
       "panels": [
         {
-          "aliasColors": {
-          },
+          "aliasColors": {},
           "bars": false,
           "datasource": "Prometheus",
           "editable": true,
@@ -127,7 +126,8 @@
               "min": null,
               "show": true
             }
-          ]
+          ],
+          "seriesOverrides": []
         }
       ],
       "title": "Load Average"
@@ -271,7 +271,9 @@
             "min": false,
             "show": true,
             "total": false,
-            "values": true
+            "values": true,
+            "alignAsTable": true,
+            "rightSide": true
           },
           "lines": true,
           "linewidth": 2,
@@ -290,9 +292,9 @@
               "calculatedInterval": "2s",
               "datasourceErrors": {},
               "errors": {},
-              "expr": "node_memory_MemAvailable{instance=~\"$server\"} / 1048576",
+              "expr": "node_memory_MemAvailable{instance=~\"$server\"}",
               "intervalFactor": 2,
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{instance}} {{rancher_group}}",
               "metric": "",
               "refId": "A",
               "step": 10
@@ -304,7 +306,7 @@
           "tooltip": {
             "msResolution": true,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "individual"
           },
           "type": "graph",
           "x-axis": true,
@@ -318,7 +320,7 @@
           ],
           "yaxes": [
             {
-              "format": "short",
+              "format": "bytes",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -331,7 +333,7 @@
               "logBase": 1,
               "max": null,
               "min": null,
-              "show": true
+              "show": false
             }
           ]
         },
@@ -362,7 +364,11 @@
             "min": false,
             "show": true,
             "total": false,
-            "values": true
+            "values": true,
+            "alignAsTable": true,
+            "rightSide": true,
+            "hideEmpty": false,
+            "hideZero": false
           },
           "lines": true,
           "linewidth": 2,
@@ -381,9 +387,9 @@
               "calculatedInterval": "2s",
               "datasourceErrors": {},
               "errors": {},
-              "expr": "node_memory_Committed_AS{instance=~\"$server\"} / 1048576",
+              "expr": "node_memory_Committed_AS{instance=~\"$server\"}",
               "intervalFactor": 2,
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{instance}} {{rancher_group}}",
               "metric": "",
               "refId": "A",
               "step": 10,
@@ -396,7 +402,7 @@
           "tooltip": {
             "msResolution": true,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "individual"
           },
           "type": "graph",
           "x-axis": true,
@@ -410,7 +416,7 @@
           ],
           "yaxes": [
             {
-              "format": "short",
+              "format": "bytes",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -423,7 +429,7 @@
               "logBase": 1,
               "max": null,
               "min": null,
-              "show": true
+              "show": false
             }
           ]
         }
@@ -649,11 +655,15 @@
           "legend": {
             "avg": false,
             "current": true,
-            "max": false,
+            "max": true,
             "min": false,
             "show": true,
             "total": false,
-            "values": true
+            "values": true,
+            "alignAsTable": true,
+            "rightSide": true,
+            "sortDesc": true,
+            "sort": "max"
           },
           "lines": true,
           "linewidth": 2,
@@ -675,7 +685,7 @@
               "expr": "rate(node_disk_read_time_ms{instance=~\"$server\",device!=\"sr0\"}[30s])",
               "hide": false,
               "intervalFactor": 2,
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{instance}} {{rancher_group}} {{device}}",
               "metric": "",
               "refId": "A",
               "step": 10
@@ -701,7 +711,7 @@
           ],
           "yaxes": [
             {
-              "format": "short",
+              "format": "ms",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -714,7 +724,7 @@
               "logBase": 1,
               "max": null,
               "min": null,
-              "show": true
+              "show": false
             }
           ]
         },
@@ -740,12 +750,16 @@
           "id": 16,
           "legend": {
             "avg": false,
-            "current": false,
+            "current": true,
             "max": false,
             "min": false,
-            "show": false,
+            "show": true,
             "total": false,
-            "values": false
+            "values": true,
+            "alignAsTable": true,
+            "rightSide": true,
+            "sortDesc": false,
+            "sort": "current"
           },
           "lines": true,
           "linewidth": 2,
@@ -768,7 +782,8 @@
               "intervalFactor": 2,
               "metric": "",
               "refId": "A",
-              "step": 10
+              "step": 10,
+              "legendFormat": "{{instance}} {{rancher_group}} {{device}}"
             }
           ],
           "timeFrom": null,
@@ -777,7 +792,7 @@
           "tooltip": {
             "msResolution": false,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "individual"
           },
           "type": "graph",
           "x-axis": true,
@@ -791,7 +806,7 @@
           ],
           "yaxes": [
             {
-              "format": "short",
+              "format": "bytes",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -804,7 +819,7 @@
               "logBase": 1,
               "max": null,
               "min": null,
-              "show": true
+              "show": false
             }
           ]
         }
@@ -864,12 +879,12 @@
           "targets": [
             {
               "expr": "rancher_host_health",
+              "interval": "",
               "intervalFactor": 2,
               "legendFormat": "{{host}}",
-              "refId": "A",
-              "step": 10,
               "metric": "rancher_host_health",
-              "interval": ""
+              "refId": "A",
+              "step": 10
             }
           ],
           "title": "Host Health - Rancher",
@@ -1148,13 +1163,68 @@
             "selected": true
           },
           {
-            "text": "dm-host-1",
-            "value": "dm-host-1",
+            "text": "i-0192cc19",
+            "value": "i-0192cc19",
             "selected": false
           },
           {
-            "text": "dm-host-2",
-            "value": "dm-host-2",
+            "text": "i-277b233f",
+            "value": "i-277b233f",
+            "selected": false
+          },
+          {
+            "text": "i-2d53c6b9",
+            "value": "i-2d53c6b9",
+            "selected": false
+          },
+          {
+            "text": "i-30f8db28",
+            "value": "i-30f8db28",
+            "selected": false
+          },
+          {
+            "text": "i-4895cb50",
+            "value": "i-4895cb50",
+            "selected": false
+          },
+          {
+            "text": "i-4f95cb57",
+            "value": "i-4f95cb57",
+            "selected": false
+          },
+          {
+            "text": "i-6481347c",
+            "value": "i-6481347c",
+            "selected": false
+          },
+          {
+            "text": "i-8379d29b",
+            "value": "i-8379d29b",
+            "selected": false
+          },
+          {
+            "text": "i-a56c5178",
+            "value": "i-a56c5178",
+            "selected": false
+          },
+          {
+            "text": "i-a9fadeb1",
+            "value": "i-a9fadeb1",
+            "selected": false
+          },
+          {
+            "text": "i-acc564b4",
+            "value": "i-acc564b4",
+            "selected": false
+          },
+          {
+            "text": "i-d200a6ca",
+            "value": "i-d200a6ca",
+            "selected": false
+          },
+          {
+            "text": "i-ed6d5030",
+            "value": "i-ed6d5030",
             "selected": false
           }
         ],

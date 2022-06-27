@@ -22,10 +22,15 @@ scrape_configs:
 - job_name: {{ $service.Name }}.{{ $service.Stack.Name }}.rancher.internal
   static_configs:
   - targets:
+  {{- $targets := dict "count" 0 }}
   {{- range $service.Containers }}
+  {{- if .Host }}
+    {{- $targets := set $targets "count" (add (get $targets "count") 1) }}
     {{- $host := .Host }}
     - "{{ replace "%{host.ip}" $host.AgentIP (replace "%{ip}" .PrimaryIp $hostLabel) }}"
   {{- end }}
+  {{- end }}
+  {{- if eq (get $targets "count") 0 }} []{{- end }}
 {{ indent 2 (yaml (omit (get .Metadata $label) "address")) }}
 {{- end }}
 {{- end }}
